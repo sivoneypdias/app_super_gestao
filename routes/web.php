@@ -26,3 +26,6 @@ Route::prefix('/app')->group(function(){
     Route::get('/produtos', function(){return 'Produtos'; })->name('app.produtos');
 });
 
+Route::fallback(function(){
+    echo 'A rota acessada não existe. <a href="'.route('site.index').'">Clique aqui</a> para acessar a Página Inicial.';
+});
