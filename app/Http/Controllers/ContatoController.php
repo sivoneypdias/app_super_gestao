@@ -3,12 +3,15 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\SiteContato;
 
 class ContatoController extends Controller
 {
-    public function contato(){
+    public function contato(Request $request){
 
-        var_dump($_POST);
+        $contato = new SiteContato();
+        $contato->fill($request->all());
+        $contato->save();
 
         return view('site.contato');
     }
