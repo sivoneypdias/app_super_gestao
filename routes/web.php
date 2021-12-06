@@ -21,16 +21,10 @@ Route::post('/contato','ContatoController@salvar')->name('site.contato');
 Route::get('/sobre-nos','SobreNosController@sobreNos')->name('site.sobrenos');
 Route::get('/login', function(){return 'Login'; });
 
-Route::prefix('/app')->group(function(){
-    Route::middleware('autenticacao')
-        ->get('/clientes', function(){return 'Clientes'; })
-        ->name('app.clientes');
-    Route::middleware('autenticacao')
-        ->get('/fornecedores', 'FornecedorController@index')
-        ->name('app.fornecedores');
-    Route::middleware('autenticacao')
-        ->get('/produtos', function(){return 'Produtos'; })
-        ->name('app.produtos');
+Route::middleware('autenticacao')->prefix('/app')->group(function(){
+    Route::get('/clientes', function(){return 'Clientes'; })->name('app.clientes');
+    Route::get('/fornecedores', 'FornecedorController@index')->name('app.fornecedores');
+    Route::get('/produtos', function(){return 'Produtos'; })->name('app.produtos');
 });
 
 Route::fallback(function(){
