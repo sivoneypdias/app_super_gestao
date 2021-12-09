@@ -44,6 +44,12 @@
             </table>
                 {{--  append to the query string of pagination links using the appends method. --}}
                 {{ $fornecedores->appends($request)->links() }}
+
+
+                {{--  https://laravel.com/docs/8.x/pagination#paginator-instance-methods  --}}
+                Exibindo {{ $fornecedores->count() }} fornecedores de {{ $fornecedores->total() }} (de {{ $fornecedores->firstItem() }} a {{ $fornecedores->lastItem() }})
+                
+
             </div>
     </div>
 @endsection
