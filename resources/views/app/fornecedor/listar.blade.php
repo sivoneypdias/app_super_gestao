@@ -32,17 +32,18 @@
                 <tbody>
                 @foreach ($fornecedores as $fornecedor)
                     <tr>                        
-                        <td>{{ $fornecedor->nome}}</td>
-                        <td>{{ $fornecedor->site}}</td>
-                        <td>{{ $fornecedor->uf}}</td>
-                        <td>{{ $fornecedor->email}}</td>
+                        <td>{{ $fornecedor->nome }}</td>
+                        <td>{{ $fornecedor->site }}</td>
+                        <td>{{ $fornecedor->uf }}</td>
+                        <td>{{ $fornecedor->email }}</td>
                         <td>Excluir</td>
                         <td><a href="{{ route('app.fornecedor.editar', [$fornecedor->id, ' '])}}">Editar</a></td>                        
                     </tr>
                 @endforeach    
                 </tbody>
             </table>
-
+                {{--  append to the query string of pagination links using the appends method. --}}
+                {{ $fornecedores->appends($request)->links() }}
             </div>
     </div>
 @endsection
