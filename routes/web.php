@@ -33,7 +33,12 @@ Route::middleware('autenticacao:padrao')->prefix('/app')->group(function(){
     Route::post('/fornecedor/adicionar', 'FornecedorController@adicionar')->name('app.fornecedor.adicionar');
     Route::get('/fornecedor/editar/{id}/{msg?}', 'FornecedorController@editar')->name('app.fornecedor.editar');
     Route::get('/fornecedor/excluir/{id}', 'FornecedorController@excluir')->name('app.fornecedor.excluir');
+    
+    // produtos
     Route::resource('produto', 'ProdutoController');
+
+    // produto detalhes
+    Route::resource('produto-detalhe', 'ProdutoDetalheController');
 });
 
 Route::fallback(function(){

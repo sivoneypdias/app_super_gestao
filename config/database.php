@@ -6,7 +6,7 @@ $url = parse_url(getenv("DATABASE_URL"));
 
 $host = 'localhost';
 $username = 'root';
-$password = 'root';
+$password = '';
 $database = 'sg';
 $default = 'mysql';
 
