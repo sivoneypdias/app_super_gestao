@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Produto;
 use App\Unidade;
+use App\Item;
 use Illuminate\Http\Request;
 use App\ProdutoDetalhe;
 
@@ -16,8 +17,9 @@ class ProdutoController extends Controller
      */
     public function index(Request $request)
     {
-        //
-        $produtos = Produto::paginate(10);
+        // https://laravel.com/docs/5.2/eloquent-relationships#eager-loading
+        // alterando o carregamento de Lazy Loading para Eager Loading
+        $produtos = Item::with('itemDetalhe')->paginate(10);
        
         return view('app.produto.index', ['produtos' => $produtos, 'request' => $request->all()]);
     }
