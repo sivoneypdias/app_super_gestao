@@ -20,4 +20,12 @@ class Fornecedor extends Model
      * @see https://laravel.com/docs/7.x/eloquent#mass-assignment
      */
     protected $fillable = ['nome', 'site', 'uf', 'email'];
+
+    /* 
+    override the foreign and local keys by passing additional arguments to the hasMany method:
+    return $this->hasMany('App\Item', 'foreign_key', 'local_key');    
+    */
+    public function produtos(){
+        return $this->hasMany('App\Item', 'fornecedor_id', 'id');
+    }
 }
