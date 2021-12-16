@@ -7,6 +7,7 @@ use App\Unidade;
 use App\Item;
 use Illuminate\Http\Request;
 use App\ProdutoDetalhe;
+use App\Fornecedor;
 
 class ProdutoController extends Controller
 {
@@ -31,10 +32,13 @@ class ProdutoController extends Controller
      */
     public function create()
     {
-        //
+        $fornecedores = Fornecedor::all();
         $unidades = Unidade::all();
 
-        return view('app.produto.create',['unidades' => $unidades]);
+        return view('app.produto.create',[
+            'unidades' => $unidades, 
+            'fornecedores' => $fornecedores
+        ]);
     }
 
     /**
@@ -45,12 +49,13 @@ class ProdutoController extends Controller
      */
     public function store(Request $request)
     {
-        // validação
-        $regras = [            
+         // validação
+         $regras = [            
             'nome' => 'required|min:3|max:40',
             'descricao' => 'required|min:3|max:2000',
             'peso' => 'required|integer',
-            'unidade_id' => 'exists:unidades,id',                
+            'unidade_id' => 'exists:unidades,id',  
+            'fornecedor_id' => 'exists:fornecedores,id',                            
         ];
 
         $feedback = [
@@ -64,22 +69,24 @@ class ProdutoController extends Controller
 
             'unidade_id.exists' => 'A unidade de medida informada não existe.',
 
+            'fornecedor_id.exists' => 'O fornecedor informado não existe.',
+
             'required' => 'O campo :attribute dever ser preenchido'
         ];
 
         $request->validate($regras, $feedback);  
 
-        Produto::create($request->all());
+        item::create($request->all());
         return redirect()->route('produto.index');
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Produto  $produto
+     * @param  \App\Item  $produto
      * @return \Illuminate\Http\Response
      */
-    public function show(Produto $produto)
+    public function show(Item $produto)
     {
         //
         return view('app.produto.show',['produto' => $produto]);
@@ -88,25 +95,30 @@ class ProdutoController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Produto  $produto
+     * @param  \App\Item  $produto
      * @return \Illuminate\Http\Response
      */
-    public function edit(Produto $produto)
+    public function edit(Item $produto)
     {
         //
         $unidades = Unidade::all();
+        $fornecedores = Fornecedor::all();
 
-        return view('app.produto.edit',['produto' => $produto, 'unidades' => $unidades]);
+        return view('app.produto.edit',[
+            'produto' => $produto, 
+            'unidades' => $unidades, 
+            'fornecedores' => $fornecedores
+        ]); 
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Produto  $produto
+     * @param  \App\Item  $produto
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Produto $produto)
+    public function update(Request $request, Item $produto)
     {
         //
          // validação
@@ -114,7 +126,8 @@ class ProdutoController extends Controller
             'nome' => 'required|min:3|max:40',
             'descricao' => 'required|min:3|max:2000',
             'peso' => 'required|integer',
-            'unidade_id' => 'exists:unidades,id',                
+            'unidade_id' => 'exists:unidades,id',  
+            'fornecedor_id' => 'exists:fornecedores,id',                            
         ];
 
         $feedback = [
@@ -127,6 +140,8 @@ class ProdutoController extends Controller
             'peso.integer' => 'O campo peso deve ser um número inteiro',
 
             'unidade_id.exists' => 'A unidade de medida informada não existe.',
+
+            'fornecedor_id.exists' => 'O fornecedor informado não existe.',
 
             'required' => 'O campo :attribute dever ser preenchido'
         ];
@@ -141,10 +156,10 @@ class ProdutoController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Produto  $produto
+     * @param  \App\Item  $produto
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Produto $produto)
+    public function destroy(Item $produto)
     {
         //
         $produto->delete();

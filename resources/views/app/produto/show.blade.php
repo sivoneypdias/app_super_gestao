@@ -24,6 +24,10 @@
                         <td>{{ $produto->id }}</td>
                     </tr> 
                     <tr> 
+                        <td>Fornecedor</td>                       
+                        <td>{{ $produto->fornecedor->nome }}</td>
+                    </tr> 
+                       <tr> 
                         <td>Nome</td>                       
                         <td>{{ $produto->nome }}</td>
                     </tr> 

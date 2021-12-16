@@ -11,7 +11,7 @@ class Item extends Model
     You may specify a custom table by defining a table property on your model:*/
     protected $table = 'produtos';
 
-    protected $fillable = ['nome','descricao','peso','unidade_id'];
+    protected $fillable = ['nome','descricao','peso','unidade_id', 'fornecedor_id'];
     
     /* If your parent model does not use id as its primary key, or you wish to join the 
     child model to a different column, you may pass a third argument to the belongsTo 
