@@ -18,8 +18,12 @@ class Pedido extends Model
     joining to:
 
     return $this->belongsToMany('App\Role', 'role_user', 'user_id', 'role_id'); 
+
+    By default, only the model keys will be present on the pivot object. If your pivot table contains extra attributes, you must specify them when defining the relationship:
+
+    return $this->belongsToMany('App\Role')->withPivot('column1', 'column2');
     */
     public function produtos(){
-        return $this->belongsToMany('App\Item', 'pedidos_produtos', 'pedido_id', 'produto_id'); 
+        return $this->belongsToMany('App\Item', 'pedidos_produtos', 'pedido_id', 'produto_id')->withPivot('created_at'); 
     }
 }
