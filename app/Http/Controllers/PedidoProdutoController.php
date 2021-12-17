@@ -42,18 +42,45 @@ class PedidoProdutoController extends Controller
     {
           // validação
         $regras = [            
-            'produto_id' => 'exists:produtos,id',                            
+            'produto_id' => 'exists:produtos,id',
+            'quantidade' => 'required',
         ];
 
         $feedback = [
-            'produto_id.exists' => 'O produto informado não existe.',        ];
+            'produto_id.exists' => 'O produto informado não existe.', 
+            'required' => 'O campo :attribute dever ser preenchido'       
+        ];
 
         $request->validate($regras, $feedback);  
 
+        /*
         $pedidoProduto = new PedidoProduto();
         $pedidoProduto->pedido_id = $pedido->id;
         $pedidoProduto->produto_id = $request->get('produto_id');
+    //  $pedidoProduto->quantidade = $request->get('quantidade');
         $pedidoProduto->save();
+        */
+
+        /* When attaching a relationship to a model, you may also pass an array of additional 
+        data to be inserted into the intermediate table:
+
+        $user->roles()->attach($roleId, ['expires' => $expires]); */
+
+        /*
+        $pedido->produtos()->attach($request->get('produto_id'), [
+            'quantidade' =>$request->get('quantidade')
+        ]);
+        */
+
+        /* For convenience, attach and detach also accept arrays of IDs as input:
+        $user->roles()->attach([
+            1 => ['expires' => $expires],
+            2 => ['expires' => $expires],
+        ]);
+        */
+        $pedido->produtos()->attach([
+            $request->get('produto_id') => ['quantidade' =>$request->get('quantidade')],            
+        ]);
         
         return redirect()->route('pedido-produto.create',['pedido' => $pedido->id]);
     }
