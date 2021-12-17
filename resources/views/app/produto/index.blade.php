@@ -55,6 +55,27 @@
                         </td>
                         <td><a href="{{ route('produto.edit', ['produto' => $produto->id]) }}">Editar</a></td>                                                
                     </tr>
+                     <tr>
+                        <td colspan="12">
+                        <p>Lista de pedidos</p>
+                        <table border="1" width="97%" style="margin:20px;">
+                             <thead>
+                                <tr>
+                                    <th>ID do Pedido</th>
+                                    <th>Cliente</th>                                    
+                                </tr>                                
+                            </thead>
+                            <tbody>
+                                @foreach ($produto->pedidos as $key => $pedido )
+                                <tr>
+                                    <td><a href="{{ route('pedido-produto.create', ['pedido' => $pedido->id]) }}">{{ $pedido->id }} </a></td>
+                                    <td>{{ $pedido->cliente->nome }} </td>
+                                </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
+                        </td>    
+                    </tr>
                 @endforeach    
                 </tbody>
             </table>
