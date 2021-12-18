@@ -122,10 +122,10 @@ class PedidoProdutoController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param  PedidoProduto  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Pedido $pedido, Produto $produto)
+    public function destroy(PedidoProduto $pedidoProduto)
     {
 
     /* Sometimes it may be necessary to remove a role from a user. To remove a many-to-many 
@@ -135,7 +135,12 @@ class PedidoProdutoController extends Controller
         // Detach a single role from the user...
         $user->roles()->detach($roleId);
      */   
-        $pedido->produtos()->detach($produto->id);
-        return redirect()->route('pedido-produto.create',['pedido' => $pedido->id]);     
+        // $pedido->produtos()->detach($produto->id);
+
+        $pedido = $pedidoProduto->pedido_id;
+
+        $pedidoProduto->delete();
+
+        return redirect()->route('pedido-produto.create',['pedido' => $pedido]);     
     }
 }

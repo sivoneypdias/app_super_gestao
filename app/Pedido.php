@@ -24,6 +24,6 @@ class Pedido extends Model
     return $this->belongsToMany('App\Role')->withPivot('column1', 'column2');
     */
     public function produtos(){
-        return $this->belongsToMany('App\Item', 'pedidos_produtos', 'pedido_id', 'produto_id')->withPivot('created_at'); 
+        return $this->belongsToMany('App\Item', 'pedidos_produtos', 'pedido_id', 'produto_id')->withPivot('id','created_at'); 
     }
 }
